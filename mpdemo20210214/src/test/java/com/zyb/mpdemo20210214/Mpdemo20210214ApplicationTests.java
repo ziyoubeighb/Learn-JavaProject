@@ -1,5 +1,6 @@
 package com.zyb.mpdemo20210214;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyb.mpdemo20210214.bean.User;
 import com.zyb.mpdemo20210214.mapper.UserMapper;
@@ -147,6 +148,33 @@ class Mpdemo20210214ApplicationTests {
         user.setEmail("helen@sina.com");
         user.setAge(18);
         userMapper.insert(user);
+    }
+
+
+    /**
+     * 复杂查询
+     */
+    @Test
+    public void testWapper(){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        //gt 大于； lt 小于；ge 大于等于； le小于等于； eq 等于; ne 不等于
+        //queryWrapper.ge("age",10);
+
+        //between 范围
+        //queryWrapper.between("age",10,20);
+
+        //like 模糊查询
+        //queryWrapper.like("name","m");
+
+        //order by desc
+        //queryWrapper.orderByDesc("id");
+
+        //last
+        queryWrapper.last("limit 1");
+
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
+
     }
 
 }
